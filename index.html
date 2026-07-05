@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OceanFocus Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      color: white;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.28), transparent 18%),
+        linear-gradient(180deg, #6dd7e8 0%, #32aeca 42%, #0f5f8f 100%);
+      overflow-x: hidden;
+    }
+
+    .ocean-bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .light {
+      position: absolute;
+      top: -120px;
+      width: 180px;
+      height: 120vh;
+      background: rgba(255, 255, 255, 0.16);
+      transform: rotate(16deg);
+      filter: blur(1px);
+      border-radius: 100px;
+    }
+
+    .light.one {
+      left: 18%;
+    }
+
+    .light.two {
+      left: 48%;
+      width: 220px;
+      opacity: 0.8;
+    }
+
+    .light.three {
+      right: 8%;
+      width: 150px;
+      opacity: 0.6;
+    }
+
+    .bubble {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+    }
+
+    .bubble:nth-child(4) {
+      left: 12%;
+      top: 18%;
+    }
+
+    .bubble:nth-child(5) {
+      left: 72%;
+      top: 24%;
+      width: 7px;
+      height: 7px;
+    }
+
+    .bubble:nth-child(6) {
+      left: 82%;
+      top: 64%;
+      width: 12px;
+      height: 12px;
+    }
+
+    .bubble:nth-child(7) {
+      left: 26%;
+      top: 70%;
+      width: 8px;
+      height: 8px;
+    }
+
+    .bubble:nth-child(8) {
+      left: 50%;
+      top: 84%;
+      width: 6px;
+      height: 6px;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 720px;
+      padding: 48px 36px;
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 24px 70px rgba(0, 42, 80, 0.28);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      text-align: center;
+    }
+
+    .icon {
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.22);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 18px 36px rgba(0, 55, 90, 0.22);
+      font-size: 46px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      text-shadow: 0 6px 18px rgba(0, 67, 100, 0.28);
+    }
+
+    .subtitle {
+      margin: 18px auto 34px;
+      max-width: 560px;
+      font-size: 1.25rem;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.88);
+      text-shadow: 0 3px 10px rgba(0, 67, 100, 0.18);
+    }
+
+    .support-box {
+      margin: 0 auto 28px;
+      max-width: 520px;
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.20);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+    }
+
+    .support-box p {
+      margin: 0 0 16px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+
+    .support-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .email-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 4px;
+      padding: 15px 22px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #167da0;
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 0 14px 30px rgba(0, 64, 100, 0.24);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .email-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(0, 64, 100, 0.30);
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .wave {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      z-index: 0;
+      height: 160px;
+      background:
+        radial-gradient(120% 90% at 50% 0%, rgba(255, 239, 198, 0.95), rgba(246, 204, 132, 0.92) 55%, rgba(232, 178, 98, 0.88) 100%);
+      clip-path: ellipse(75% 58% at 50% 100%);
+      opacity: 0.9;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 38px 24px;
+        border-radius: 30px;
+      }
+
+      .icon {
+        width: 78px;
+        height: 78px;
+        font-size: 38px;
+        border-radius: 24px;
+      }
+
+      .subtitle {
+        font-size: 1.08rem;
+      }
+
+      .support-box {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ocean-bg">
+    <div class="light one"></div>
+    <div class="light two"></div>
+    <div class="light three"></div>
+
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <main>
+    <section class="card">
+      <div class="icon">🌊</div>
+
+      <h1>OceanFocus Support</h1>
+
+      <p class="subtitle">
+        Thank you for using OceanFocus. We are here to help you stay focused
+        and keep your ocean growing.
+      </p>
+
+      <div class="support-box">
+        <p>
+          If you have questions, feedback, or need help with the app,
+          please contact us at:
+        </p>
+
+        <a class="email-button" href="mailto:tuemail@example.com">
+          ✉️ oscar.omar17.10.92@gmail.com
+        </a>
+      </div>
+
+      <p class="footer">
+        We usually respond as soon as possible.
+      </p>
+    </section>
+  </main>
+
+  <div class="wave"></div>
+</body>
+</html>
